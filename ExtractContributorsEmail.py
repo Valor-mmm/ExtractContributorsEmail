@@ -18,8 +18,10 @@ def prepare_user(user):
     else:
         login = user_info['login']
         user_name = user_info['name']
-    if not name or not email:
-        print('Missing user attributes')
+    if not name:
+        print('Missing name', user)
+    if not email:
+        print('Missing email', user)
     return {'name': name, 'login': login, 'email': email, 'user_name': user_name}
 
 
@@ -27,17 +29,18 @@ def ensure_result_dir(result_dir):
     if not os.path.exists(result_dir):
         os.makedirs(result_dir)
 
+
 def write_users(users, name, result_dir):
     ensure_result_dir(result_dir)
 
-    with open(os.path.join(result_dir, name), 'w') as f:
+    with open(os.path.join(result_dir, name), 'a') as f:
         dump(users, f)
 
 
 def write_emails(emails, name, result_dir):
     ensure_result_dir(result_dir)
 
-    with open(os.path.join(result_dir, name), 'w') as f:
+    with open(os.path.join(result_dir, name), 'a') as f:
         for email in emails:
             f.write(email + str(os.linesep))
 
